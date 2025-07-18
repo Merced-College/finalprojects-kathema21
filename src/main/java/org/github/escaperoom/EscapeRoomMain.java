@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-
-
 package org.github.escaperoom;
 import org.github.escaperoom.Room1.Room1;
 

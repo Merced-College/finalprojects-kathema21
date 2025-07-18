@@ -1,7 +1,3 @@
-// Katelynn Prater - 7/18/25
-// Inventory class to store all usable and mobile items by player
-
-
 package org.github.escaperoom.items;
 
 import java.util.ArrayList;

@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// Item abstract class as template for all other future items
-
 package org.github.escaperoom.items;
 
 public abstract class Item { 

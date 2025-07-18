@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// abstract room class as template for all rooms
-
 package org.github.escaperoom;
 
 public abstract class Room {

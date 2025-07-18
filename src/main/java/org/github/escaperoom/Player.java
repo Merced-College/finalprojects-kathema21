@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// player class for player logic, movement, inv management
-
 package org.github.escaperoom;
 import java.util.Scanner;
 

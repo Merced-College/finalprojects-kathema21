@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// Flashlight class for future rooms, not relevant for room1, for room3
-
 package org.github.escaperoom.items;
 import org.github.escaperoom.TextMethods;
 

@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// methods for second puzzle in room1
-
 package org.github.escaperoom.Room1;
 
 import java.util.Arrays;

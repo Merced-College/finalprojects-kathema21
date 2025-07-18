@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// TextMethods for all text parsing and narratorial needs
-
 package org.github.escaperoom;
 import java.io.IOException;
 import java.nio.file.Files;

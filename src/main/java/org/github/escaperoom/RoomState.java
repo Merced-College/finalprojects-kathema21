@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// RoomState class to store more room specific info
-
 package org.github.escaperoom;
 
 public class RoomState {

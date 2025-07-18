@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// Logic for first puzzle in room 1
-
 package org.github.escaperoom.Room1;
 import java.util.ArrayList;
 import java.util.Random;

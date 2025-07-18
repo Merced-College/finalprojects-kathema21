@@ -1,5 +1,3 @@
-//singleton to track total game state
-
 package org.github.escaperoom;
 import java.util.ArrayList;
 

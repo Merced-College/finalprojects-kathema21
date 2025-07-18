@@ -1,8 +1,3 @@
-// Katelynn Prater - 7/18/25 - Room1
-// This is the main logic for how room1 works, pulling from
-// all three puzzles and paper item
-
-
 package org.github.escaperoom.Room1;
 import org.github.escaperoom.Player;
 import org.github.escaperoom.Room;

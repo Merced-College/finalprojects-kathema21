@@ -1,6 +1,3 @@
-// Katelynn Prater - 7/18/25
-// Paper item for room1 puzzle.
-
 package org.github.escaperoom.items;
 
 import java.util.ArrayList;
