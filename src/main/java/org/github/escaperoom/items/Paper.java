@@ -2,7 +2,7 @@ package org.github.escaperoom.items;
 
 import java.util.ArrayList;
 
-import org.github.escaperoom.Room1Buttons;
+import org.github.escaperoom.Room1.Room1Buttons;
 import org.github.escaperoom.TextMethods;
 
 public class Paper extends Item {

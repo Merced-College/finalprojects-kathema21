@@ -58,17 +58,21 @@ public class Player {
             if (input.equalsIgnoreCase("help")) {
                 txt.printHelp();
                 txt.typeWriterNormal("Now, select a corner. 1, 2, 3, or 4.");
+                continue;
             }
             if (input.equalsIgnoreCase("exit")) {
                 txt.typeWriterNormal("There is no exiting from here. Believe me, I've tried. Now, select a corner.");
+                continue;
             }
             if (input.equalsIgnoreCase("inv")) {
                 openInventory();
                 txt.typeWriterNormal("Now, select a corner. 1, 2, 3, or 4.");
+                continue;
             }
             if (input.equalsIgnoreCase("use")) {
                 useItem();
                 txt.typeWriterNormal("Now, select a corner. 1, 2, 3, or 4.");
+                continue;
             }
             try {
                 int locNum = Integer.parseInt(input);
@@ -142,7 +146,7 @@ public class Player {
                         txt.typeWriterNormal("Before you take anything out, you put your" + heldItem.getName().toLowerCase() + " away.");
                         heldItem = null;
                     }
-                    txt.typeWriterNormal("You take out your " + inv.getInventory().get(num).getName().toLowerCase() + ".");
+                    txt.typeWriterNormal("You take out your " + inv.getInventory().get(num - 1).getName().toLowerCase() + ".");
                     return inv.getInventory().get(num - 1);
                 }
                 else {

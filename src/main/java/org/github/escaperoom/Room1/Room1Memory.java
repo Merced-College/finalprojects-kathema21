@@ -1,10 +1,13 @@
-package org.github.escaperoom;
+package org.github.escaperoom.Room1;
 
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.github.escaperoom.Player;
 import org.github.escaperoom.Player.Move;
+import org.github.escaperoom.StateTracker;
+import org.github.escaperoom.TextMethods;
 
 public class Room1Memory { // puzzle index 1
     private final String[] solution;
@@ -47,7 +50,7 @@ public class Room1Memory { // puzzle index 1
             generateSolution();
             printSolution();
             txt.waitFor(1500);
-            generateBlackout(5);
+            generateBlackout(30);
             getPlayerPattern();
         }
     }

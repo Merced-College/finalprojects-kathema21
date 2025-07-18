@@ -1,6 +1,8 @@
 package org.github.escaperoom;
 import java.util.ArrayList;
 
+import org.github.escaperoom.Room1.Room1;
+
 public class StateTracker {
     private final ArrayList<Room> gameState;
     private final static StateTracker tracker = new StateTracker();

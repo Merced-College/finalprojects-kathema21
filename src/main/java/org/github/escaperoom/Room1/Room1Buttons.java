@@ -1,9 +1,12 @@
-package org.github.escaperoom;
+package org.github.escaperoom.Room1;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.github.escaperoom.Player;
 import org.github.escaperoom.Player.Move;
+import org.github.escaperoom.StateTracker;
+import org.github.escaperoom.TextMethods;
 
 public class Room1Buttons { // puzzle index 0
     private final ArrayList<Integer> solution;

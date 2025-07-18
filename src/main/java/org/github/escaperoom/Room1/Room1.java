@@ -1,16 +1,22 @@
-package org.github.escaperoom;
+package org.github.escaperoom.Room1;
+import org.github.escaperoom.Player;
+import org.github.escaperoom.Room;
+import org.github.escaperoom.StateTracker;
+import org.github.escaperoom.TextMethods;
 import org.github.escaperoom.items.Paper;
 
 public class Room1 extends Room {
     private final TextMethods txt = TextMethods.getInstance();
     private final Room1Buttons puzzle1;
     private final Room1Memory puzzle2;
+    private final Room1Mirror puzzle3;
     private final Paper paper;
     private final Player player = Player.getInstance();
 
     public Room1() {
         puzzle1 = new Room1Buttons();
         puzzle2 = new Room1Memory();
+        puzzle3 = new Room1Mirror();
         paper = new Paper(puzzle1);
     }
 
@@ -28,10 +34,7 @@ public class Room1 extends Room {
             switch (player.getLocation()) {
                 case FIRST -> puzzle1.initiateButtonPuzzle();
                 case SECOND -> puzzle2.initiateMemoryPuzzle();
-                case THIRD -> {
-                    System.out.println("Thanks for visiting lol");
-                    StateTracker.getInstance().setPuzzleCompleted(0, 2);
-                }
+                case THIRD -> puzzle3.initiateMirror();
                 case FOURTH -> decidePaper();
                 case CENTER -> {}
             }

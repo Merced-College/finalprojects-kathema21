@@ -34,7 +34,18 @@ public class TextMethods {
         ArrayList<Character> arr = strToArray(string);
         for (char c : arr) {
             System.out.print(c);
-            int num = rand.nextInt(20,45);
+            int num = rand.nextInt(35,50);
+            waitFor(num);
+        }
+        System.out.println();
+    }
+
+    public void typeWriterKat(String string) {
+        System.out.print("Katelynn: ");
+        ArrayList<Character> arr = strToArray(string);
+        for (char c : arr) {
+            System.out.print(c);
+            int num = rand.nextInt(35,50);
             waitFor(num);
         }
         System.out.println();
@@ -59,23 +70,6 @@ public class TextMethods {
         return arr;
     }
 
-    public class Pair<K, V> {
-        public final K key;
-        public final V value;
-
-        public Pair(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public K getKey() {
-            return key;
-        }
-        public V getValue() {
-            return value;
-        }
-    }
-
     public static void printAscii(String fileName) {
         try {
             String art = Files.readString(Paths.get(fileName));
@@ -96,6 +90,7 @@ public class TextMethods {
 
     public void printHelp() {
         if (!StateTracker.getInstance().getHelpInitiated()) {
+            waitFor(300);
             typeWriterNormal("Well, since you're new here, here's some advice since we'll be stuck together for... a while.");
             waitFor(1000);
             typeWriterNormal("You are stuck in a facility with five rooms. In each, there will be three puzzles. Complete each puzzle to move to the next, and finish all rooms to win. Simple, right?");
@@ -299,7 +294,7 @@ public class TextMethods {
         }
     }
 
-    private void answerQuestion(LinkedHashMap<Integer, Pair<String, Runnable>> qs, int input) {
+    public void answerQuestion(LinkedHashMap<Integer, Pair<String, Runnable>> qs, int input) {
         for (int i : new int[]{1, 2, 3, 4, 5}) {
             if (qs.containsKey(i) && i == input) {
                 qs.get(i).getValue().run();
@@ -308,7 +303,7 @@ public class TextMethods {
         }
     } 
 
-    private boolean isAnswerHelpValid(LinkedHashMap<Integer, Pair<String, Runnable>> qs, int input) {
+    public boolean isAnswerHelpValid(LinkedHashMap<Integer, Pair<String, Runnable>> qs, int input) {
         for (int i : new int[]{1, 2, 3, 4, 5}) {
             if (qs.containsKey(i) && i == input) {
                 return true;
