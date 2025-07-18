@@ -16,7 +16,7 @@ public class Inventory {
 
     public void addItem(Item i) {
         inv.add(i);
-        txt.typeWriterNormal("You decide to put the " + i.getName().toLowerCase() + "  in your inventory. You'll probably need it later.");
+        txt.typeWriterNormal("You put the " + i.getName().toLowerCase() + "  in your inventory. You'll probably need it later.");
     }
 
     public void removeItem(Item i) {

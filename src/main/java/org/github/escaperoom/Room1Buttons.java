@@ -5,46 +5,41 @@ import java.util.Scanner;
 
 import org.github.escaperoom.Player.Move;
 
-public class Room1Buttons {
-    private boolean finished;
-    private boolean initiated;
+public class Room1Buttons { // puzzle index 0
     private final ArrayList<Integer> solution;
     private boolean revealedPaper;
     private final Scanner scnr;
     private final TextMethods txt;
     private final Random rand;
-    private final Player player;
+    private final Player player = Player.getInstance();
 
-    public boolean getFinished() {return finished;}
-    public boolean getInitiated() {return initiated;}
     public ArrayList<Integer> getSolution() {return solution;}
     public boolean hasRevealedPaper() {return revealedPaper;}
 
-    public Room1Buttons(Player player) {
+    public Room1Buttons() {
         rand = new Random();
         txt = TextMethods.getInstance();
         scnr = new Scanner(System.in);
-        finished = false;
-        initiated = false;
         solution = generateButtonSol();
         revealedPaper = false;
-        this.player = player;
     }
     
     public void initiateButtonPuzzle() {
-        if (finished) {
+        if (StateTracker.getInstance().isPuzzleFinished(0, 0)) {
             txt.typeWriterNormal("You already completed this puzzle, you don't need to be over here.");
+            txt.waitFor(300);
+            txt.typeWriterNormal("You return back to the center.");
             return;
         }
         player.setLocation(Move.FIRST);
-        if (!initiated) {
+        if (!StateTracker.getInstance().isPuzzleVisited(0, 0)) {
             txt.typeWriterNormal("In front of you, there seems to be three buttons. You stare at them like they hold all the secrets to the universe.");
-            txt.waitFor(200);
+            txt.waitFor(300);
             txt.typeWriterNormal("You wonder what would happen if you press a button.");
-            initiated = true;
+            StateTracker.getInstance().setPuzzleStarted(0, 0);
         }
         else {
-             txt.typeWriterNormal("You refocus on the three buttons, hopefully with an idea to complete the puzzle.");
+            txt.typeWriterNormal("You refocus on the three buttons, hopefully with an idea to complete the puzzle.");
         }
 
         completeButtonPuzzle();
@@ -53,14 +48,14 @@ public class Room1Buttons {
     private void completeButtonPuzzle() {
         ArrayList<Integer> choices = new ArrayList<>();
         while (true) {
-            if (player.isFirstIteration()) {
+            if (StateTracker.getInstance().getRoomIter(0) == 0) {
                 int choice = chooseButtonFirst();
                 if (choice == -1) {
                     return;
                 }
                 pressButton(choice);
                 choices.add(choice);
-                checkButtonPattern(choices, player.isFirstIteration());
+                checkButtonPattern(choices);
             }
             else {
                 int choice = chooseButtonLater();
@@ -69,21 +64,23 @@ public class Room1Buttons {
                 }
                 pressButton(choice);
                 choices.add(choice);
-                checkButtonPattern(choices, player.isFirstIteration());
+                checkButtonPattern(choices);
             }
-            if (finished) return;
+            if (StateTracker.getInstance().isPuzzleFinished(0, 0)) return;
         }
     }
 
-    private void checkButtonPattern(ArrayList<Integer> arr, boolean first) {
+    private void checkButtonPattern(ArrayList<Integer> arr) {
         if (arr.equals(solution)) {
-            if (first) {
+            if (StateTracker.getInstance().getRoomIter(0) == 0) {
                 txt.typeWriterNormal("Huh. You got it. Guess you knew about dimensions.");
-                finished = true;
+                StateTracker.getInstance().setPuzzleCompleted(0, 0);
+                txt.typeWriterNormal("Excellent. You completed the second puzzle in this room. You have " + StateTracker.getInstance().getNumRemainingPuzzles(0) + "/3 remaining.");
             }
             else {
                 txt.typeWriterNormal("Not as impressive after the first time around, unfortunately.");
-                finished = true;
+                StateTracker.getInstance().setPuzzleCompleted(0, 0);
+                txt.typeWriterNormal("Excellent. You completed the second puzzle in this room. You have " + StateTracker.getInstance().getNumRemainingPuzzles(0) + "/3 remaining.");
             }
         }
     }
@@ -96,6 +93,12 @@ public class Room1Buttons {
         return intList;
     }
 
+    public void printButtonSol() {
+        for (int i : solution) {
+            System.out.print(i + " ");
+        }
+    }
+
     private int chooseButtonFirst() {
         txt.waitFor(200);
         txt.typeWriterNormal("Choose a button. Enter 1, 2, or 3 into the terminal to press the respective button.");
@@ -105,17 +108,31 @@ public class Room1Buttons {
             if (choice.equalsIgnoreCase("exit")) {
                 txt.waitFor(200);
                 txt.typeWriterNormal("You decide to walk away from this puzzle, for now.");
-                player.move();
                 return -1;
             }
 
             if (choice.equalsIgnoreCase("help")) {
                 txt.waitFor(200);
-                txt.printHelp(player.getHelpInitiated());
+                txt.printHelp();
                 txt.typeWriterNormal("Choose a button. Enter 1, 2, or 3.");
                 choice = scnr.nextLine();
                 continue;
             }
+
+            if (choice.equalsIgnoreCase("inv")) {
+                player.openInventory();
+                txt.typeWriterNormal("Choose a button. Enter 1, 2, or 3.");
+                choice = scnr.nextLine();
+                continue;
+            }
+
+            if (choice.equalsIgnoreCase("use")) {
+                player.useItem();
+                txt.typeWriterNormal("Choose a button. Enter 1, 2, or 3.");
+                choice = scnr.nextLine();
+                continue;
+            }
+
             try {
                 int numChoice = Integer.parseInt(choice);
                 if (!validInt(numChoice)) {
@@ -125,7 +142,6 @@ public class Room1Buttons {
                 }
                 else {
                     txt.waitFor(200);
-                    txt.typeWriterNormal("You decide to press button " + choice + ".");
                     return Integer.parseInt(choice);
                 }
             }
@@ -151,11 +167,26 @@ public class Room1Buttons {
 
             if (choice.equalsIgnoreCase("help")) {
                 txt.waitFor(200);
-                txt.printHelp(player.getHelpInitiated());
+                txt.printHelp();
                 txt.typeWriterNormal("Choose a button. Enter 1, 2, or 3.");
                 choice = scnr.nextLine();
                 continue;
-        }
+            }
+
+            if (choice.equalsIgnoreCase("inv")) {
+                player.openInventory();
+                txt.typeWriterNormal("Choose a button. Enter 1, 2, or 3.");
+                choice = scnr.nextLine();
+                continue;
+            }
+
+            if (choice.equalsIgnoreCase("use")) {
+                player.useItem();
+                txt.typeWriterNormal("Choose a button. Enter 1, 2, or 3.");
+                choice = scnr.nextLine();
+                continue;
+            }
+
             try {
                 int numChoice = Integer.parseInt(choice);
                 if (!validInt(numChoice)) {
@@ -164,7 +195,6 @@ public class Room1Buttons {
                 }
                 else {
                     txt.waitFor(200);
-                    txt.typeWriterNormal("You decide to press button " + choice + ".");
                     return Integer.parseInt(choice);
                 }
             }
@@ -208,10 +238,9 @@ public class Room1Buttons {
     }
 
     public static void main(String[] args) {
-        Player player1 = new Player();
-        player1.setFirstIteration(false);
-        player1.setHelpInitiated(true);
-        Room1Buttons room1 = new Room1Buttons(player1);
+        Room1Buttons room1 = new Room1Buttons();
+        StateTracker.getInstance().setHelpInitiated();
+        room1.printButtonSol();
         room1.initiateButtonPuzzle();
     }
 }

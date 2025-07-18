@@ -9,24 +9,22 @@ public class Player {
     private Move location;
     private int currRoom;
     private Item heldItem;
-    private boolean gaveUpCompanion;
-    private boolean helpInitiated;
-    private boolean firstIteration;
     private final TextMethods txt;
     private final Scanner scnr;
     private final Inventory inv;
+    private static final Player player = new Player();
 
-
-    public Player() {
+    private Player() {
         location = Move.CENTER;
         currRoom = 1;
         heldItem = null;
         txt = TextMethods.getInstance();
         scnr = new Scanner(System.in);
         inv = new Inventory();
-        gaveUpCompanion = false;
-        helpInitiated = false;
-        firstIteration = true;
+    }
+
+    public static Player getInstance() {
+        return player;
     }
 
     public Move getLocation() {return location;} 
@@ -35,17 +33,12 @@ public class Player {
     public void setCurrRoom(int currRoom) {this.currRoom = currRoom;}
     public Item getHeldItem() {return heldItem;}
     public void setHeldItem(Item heldItem) {this.heldItem = heldItem;}
-    public boolean getGaveUpCompanion() {return gaveUpCompanion;}
-    public void setGaveUpCompanion(boolean gaveUpCompanion) {this.gaveUpCompanion = gaveUpCompanion;}
-    public boolean getHelpInitiated() {return helpInitiated;}
-    public void setHelpInitiated(boolean helpInitiated) {this.helpInitiated = helpInitiated;}
-    public boolean isFirstIteration() {return firstIteration;}
-    public void setFirstIteration(boolean firstIteration) {this.firstIteration = firstIteration;}
+    public Inventory getInventory() {return inv;}
     
     public void move() {
         switch(location) {
             case CENTER -> {
-                txt.typeWriterNormal("Choose which corner you'd like to move:");
+                txt.typeWriterNormal("Choose which corner you'd like to go to:");
                 System.out.println("1: First");
                 System.out.println("2: Second");
                 System.out.println("3: Third");
@@ -54,7 +47,6 @@ public class Player {
                 setLocation(choice);
             }
             default -> {
-                txt.typeWriterNormal("You decide to move to the center of the room.");
                 setLocation(Move.CENTER);
             }
         }
@@ -63,6 +55,21 @@ public class Player {
     private Move chooseLocation() {
         while (true) { 
             String input = scnr.nextLine();
+            if (input.equalsIgnoreCase("help")) {
+                txt.printHelp();
+                txt.typeWriterNormal("Now, select a corner. 1, 2, 3, or 4.");
+            }
+            if (input.equalsIgnoreCase("exit")) {
+                txt.typeWriterNormal("There is no exiting from here. Believe me, I've tried. Now, select a corner.");
+            }
+            if (input.equalsIgnoreCase("inv")) {
+                openInventory();
+                txt.typeWriterNormal("Now, select a corner. 1, 2, 3, or 4.");
+            }
+            if (input.equalsIgnoreCase("use")) {
+                useItem();
+                txt.typeWriterNormal("Now, select a corner. 1, 2, 3, or 4.");
+            }
             try {
                 int locNum = Integer.parseInt(input);
                 if (isValidInput(locNum)) {
@@ -125,17 +132,17 @@ public class Player {
     }
 
     private Item getItemChoice() {
-        if (heldItem != null) {
-            txt.typeWriterNormal("Before you take anything out, you put your hold item away.");
-            heldItem = null;
-        }
         txt.typeWriterNormal("Input the number corresponding to the item you wish to take out.");
         while (true) { 
             String input = scnr.nextLine();
             try {
                 int num = Integer.parseInt(input);
                 if (isValidInvIndex(num - 1)) {
-                    txt.typeWriterNormal("You take out your " + inv.getInventory().get(num).getName().toLowerCase() + "...");
+                    if (heldItem != null) {
+                        txt.typeWriterNormal("Before you take anything out, you put your" + heldItem.getName().toLowerCase() + " away.");
+                        heldItem = null;
+                    }
+                    txt.typeWriterNormal("You take out your " + inv.getInventory().get(num).getName().toLowerCase() + ".");
                     return inv.getInventory().get(num - 1);
                 }
                 else {
@@ -153,5 +160,19 @@ public class Player {
             if (i == j) {return true;}
         }
         return false;
+    }
+
+    public void useItem() {
+        if (heldItem == null) {
+            if (StateTracker.getInstance().getGlobalIters() == 0 || StateTracker.getInstance().savedCompanion()) {
+                txt.typeWriterNormal("You are not holding anything, genius.");
+            }
+            else {
+                txt.typeWriterNormal("... it seems you are not holding anything.");
+            }
+        }
+        else {
+            heldItem.use();
+        }
     }
 }

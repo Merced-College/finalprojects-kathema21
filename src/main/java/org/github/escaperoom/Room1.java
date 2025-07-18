@@ -1,40 +1,112 @@
 package org.github.escaperoom;
+import org.github.escaperoom.items.Paper;
 
 public class Room1 extends Room {
     private final TextMethods txt = TextMethods.getInstance();
-    private int numIterations;
-    private final Player player;
+    private final Room1Buttons puzzle1;
+    private final Room1Memory puzzle2;
+    private final Paper paper;
+    private final Player player = Player.getInstance();
 
-    public Room1(Player player) {
-        numIterations = 0;
-        this.player = player;
+    public Room1() {
+        puzzle1 = new Room1Buttons();
+        puzzle2 = new Room1Memory();
+        paper = new Paper(puzzle1);
     }
 
-    public int getNumIterations() {return numIterations;}
-    public void setNumIterations(int numIterations) {this.numIterations = numIterations;}
-
+    public Room1Buttons getPuzzle1() {return puzzle1;}
+    public Room1Memory getPuzzle2() {return puzzle2;}
+    
     @Override
     public void runRoom() {
-        decideIntro(numIterations);
-
-
+        boolean removedItem = false;
+        player.setLocation(Player.Move.CENTER);
+        decideIntro();
+        txt.typeWriterNormal("In the four corners of the room are various puzzles. Complete all three to finish the room, as stated prior.");
+        while (!StateTracker.getInstance().isRoomDone(0)) {
+            player.move();
+            switch (player.getLocation()) {
+                case FIRST -> puzzle1.initiateButtonPuzzle();
+                case SECOND -> puzzle2.initiateMemoryPuzzle();
+                case THIRD -> {
+                    System.out.println("Thanks for visiting lol");
+                    StateTracker.getInstance().setPuzzleCompleted(0, 2);
+                }
+                case FOURTH -> decidePaper();
+                case CENTER -> {}
+            }
+            if (StateTracker.getInstance().isPuzzleFinished(0, 0) && removedItem == false) {
+                player.getInventory().removeFirstItem(paper);
+                removedItem = true;
+            }
+        }
+        decideCompletionDialogue();
     }
 
-    private void decideIntro(int numIterations) {
-        switch(numIterations) {
+    public void decidePaper() {
+        if (!puzzle1.hasRevealedPaper()) {
+            txt.typeWriterNormal("You see a blank wooden table with nothing on it. It is suspiciously bare. You wonder if it is hiding something from you.");
+            txt.typeWriterNormal("You don't find anything yet, so you decide to move back to the center.");
+            player.move();
+        }
+        else if (paper.getAcquired()) {
+            txt.typeWriterNormal("You return to the table where you found your paper. You don't see anything else here. You decide to return to the center.");
+            player.move();
+        }
+        else {
+            paper.cornerReveal();
+            paper.introduce();
+            player.getInventory().addItem(paper);
+        }
+    }
+
+    private void decideCompletionDialogue() {
+        switch(state.getRoomIter()) {
+            case 0 -> {
+                txt.typeWriterNormal("Well, that was frankly an unreasonable amount of time. I've seen players do this room much quicker than you.");
+                txt.waitFor(300);
+                txt.typeWriterNormal("Regardless, you've completed it. Don't celebrate yet, you have four more rooms to go.");
+                txt.waitFor(700);
+                txt.typeWriterNormal("... the door should be opening by--");
+                txt.typeWriterNormal("Ah. There we go. In the far wall, you can hear the screeching of the door to the next room.");
+                txt.waitFor(300);
+                txt.typeWriterNormal("You decide to walk through into room 2.");
+            }
+            case 1 -> {
+                if (StateTracker.getInstance().savedCompanion()) {
+                    txt.typeWriterNormal("You wait until the far wall screeches, revealing a door to the second room.");
+                    txt.waitFor(1000);
+                    txt.typeWriterNormal("Well? What are you waiting for? Welcome to eternity.");
+                }
+                else {
+                    txt.typeWriterNormal("You wait until the far wall screeches, revealing a door to the second room.");
+                    txt.waitFor(1000);
+                    txt.typeWriterNormal("Be my guest if you wish to stay here for a while.");
+                }
+            }
+            default -> {
+                txt.typeWriterNormal("The door screeches, yadda yadda.");
+                txt.typeWriterNormal("Feel free to do whatever.");
+            }
+        }
+    }
+
+
+    private void decideIntro() {
+        switch(state.getRoomIter()) {
             case 0 -> {
                 txt.typeWriterNormal("Oh, another one? Seriously?");
                 txt.waitFor(1000);
                 txt.typeWriterNormal("*Sigh*. Well, welcome to the facility. I... dearly hope you enjoy your stay.");
-                txt.printHelp(player.getHelpInitiated());
-                player.setHelpInitiated(true);
+                txt.printHelp();
+                StateTracker.getInstance().setHelpInitiated();
             }
             case 1 -> {
-                if (!player.getGaveUpCompanion()) {
+                if (StateTracker.getInstance().savedCompanion()) {
                     txt.typeWriterSlow("Well, well, well. Welcome back.");
                     txt.waitFor(1000);
                     txt.typeWriterNormal("I can see that look. Ugh. You can't say I didn't warn you. Look, I'm not allowed to say this until at least the second loop, lest they add more time.");
-                    txt.waitFor(200);
+                    txt.waitFor(400);
                     txt.typeWriterNormal("But, I'm dead. That's why I have no form here. You don't really know or remember much before this, don't you?");
                     txt.waitFor(200);
                     txt.typeWriterNormal("Nobody to miss. To mourn. You don't even have a soul to suffer with. You get to enjoy these puzzles for the remainder of that timer.");
@@ -50,7 +122,7 @@ public class Room1 extends Room {
                 }
                 else {
                     txt.typeWriterSlow("...You burned it.");
-                    txt.waitFor(100);
+                    txt.waitFor(400);
                     txt.typeWriterNormal("I wasn't expecting you to. Barely anyone does.");
                     txt.waitFor(400);
                     txt.typeWriterNormal("Most people... they see the incinerator, hear me beg, and they walk out the door. I can't really blame them. I've gotten used to the disappointment.");
@@ -65,9 +137,9 @@ public class Room1 extends Room {
                     txt.typeWriterNormal("But for a moment--just a moment--it almost felt like it meant something.");
                     txt.waitFor(1000);
                     txt.typeWriterNormal("...Anyway. It won't last. You'll be back at the beginning like always. And I'll still be here. This is my personal hell, you know? Quite literally.");
-                    txt.waitFor(200);
+                    txt.waitFor(400);
                     txt.typeWriterNormal("And you, and every other player, are a homunculus made by the devil to serve as my torment. Still, you helped me.");
-                    txt.waitFor(200);
+                    txt.waitFor(400);
                     txt.typeWriterNormal("Maybe having a little hope is more crushing than the alternative. But it was nice. Thank you for that.");
                     txt.waitFor(600);
                     txt.typeWriterNormal("Now, go ahead. Ask me anything.");
@@ -85,36 +157,9 @@ public class Room1 extends Room {
         }
     }
 
-    private void cornerReveal(int[] arr) {
-        System.out.println();
-        txt.typeWriterNormal("You inspect the corner, revealing a piece of paper that reads...");
-        System.out.println();
-        System.out.println("========================");
-        for (int i = 0; i < arr.length; i++) {
-            if (i == arr.length - 1) {
-                System.out.println(numberToDimension(i));
-            }
-            else {
-                System.out.println(numberToDimension(i) + ", ");
-            }
-        }
-        System.out.println("========================");
-    }
-
-    private String numberToDimension(int num) {
-        return switch (num) {
-            case 1 -> "Line";
-            case 2 -> "Square";
-            case 3 -> "Cube";
-            default -> null;
-        };
-    }
-
     public static void main(String[] args) {
-        Player player = new Player();
-        player.setGaveUpCompanion(false);
-        Room1 room1 = new Room1(player);
-        room1.decideIntro(1);
+        Room1 r1 = new Room1();
+        r1.runRoom();
     }
 
 
