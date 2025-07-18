@@ -1,20 +1,23 @@
+// Katelynn Prater - 7/18/25
+// abstract room class as template for all rooms
+
 package org.github.escaperoom;
 
 public abstract class Room {
-    protected boolean[] finishedPuzzles = new boolean[]{false, false, false};
+    protected boolean[] finishedPuzzles = new boolean[]{false, false, false}; //set as finishing puzzles
     protected boolean finished = false;
-    protected RoomState state = new RoomState();
+    protected RoomState state = new RoomState(); //data stored for room
 
     public boolean isFinished() {return finished;}
     public void setFinished(boolean finished) {this.finished = finished;}
     public boolean[] getFinishedPuzzles() {return finishedPuzzles;}
     public RoomState getRoomState() {return state;}
     
-    public void setFinishedPuzzle(int puzzle) {
-        finishedPuzzles[puzzle - 1] = true;
+    public void setFinishedPuzzle(int index) {
+        finishedPuzzles[index] = true; //int puzzle
     }
 
-    public boolean allPuzzlesFinished() {
+    public boolean allPuzzlesFinished() { //to check for moving into next room
         for (boolean bool : finishedPuzzles) {
             if (!bool) return false;
         }
@@ -22,4 +25,4 @@ public abstract class Room {
     }
 
     public abstract void runRoom();
-}
+} // end room class

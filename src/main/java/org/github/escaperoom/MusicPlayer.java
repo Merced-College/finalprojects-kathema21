@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// class to play audio (spur of moment)
+
 package org.github.escaperoom;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +20,7 @@ public class MusicPlayer {
         return musicPlayer;
     }
 
-    public void playLoop(String filepath) {
+    public void playLoop(String filepath) { //to loop if wanted music, used chatgpt cus I've never used this library b4
         try {
             File musicPath = new File(filepath);
 
@@ -28,16 +31,16 @@ public class MusicPlayer {
             AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
             clip = AudioSystem.getClip();
             clip.open(audio);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.loop(Clip.LOOP_CONTINUOUSLY); //loops continuously until stop()
 
-            setVolume(-10.0f);
+            setVolume(-10.0f); //sets low volume
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println("Error occurred.");
         }
-    }
+    } // end playLoop
 
-    public void play(String filepath) {
+    public void play(String filepath) { //plays once
         try {
             File musicPath = new File(filepath);
 
@@ -48,24 +51,24 @@ public class MusicPlayer {
             AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
             clip = AudioSystem.getClip();
             clip.open(audio);
-            clip.start();
+            clip.start(); //plays 
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println("Error occurred.");
         }
-    }
+    } // end play
 
-     public void setVolume(float decibels) {
+     public void setVolume(float decibels) { //sets vol
         if (clip != null) {
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(decibels); 
         }
     }
 
-    public void stop() {
+    public void stop() { //stops audio
         if (clip != null && clip.isRunning()) {
             clip.stop();
             clip.close();
         }
-    }
-}
+    } 
+} // end musicplayer class

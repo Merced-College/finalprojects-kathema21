@@ -1,3 +1,5 @@
+//singleton to track total game state
+
 package org.github.escaperoom;
 import java.util.ArrayList;
 
@@ -6,17 +8,17 @@ import org.github.escaperoom.Room1.Room1;
 public class StateTracker {
     private final ArrayList<Room> gameState;
     private final static StateTracker tracker = new StateTracker();
-    private boolean incineratedCompanion;
-    private boolean savedCompanion;
-    private boolean helpInitiated;
-    private int iters;
+    private boolean incineratedCompanion; //for later in game, not relevant (room 5+)
+    private boolean savedCompanion; //for later in game, not relevant (room 5+)
+    private boolean helpInitiated; //changes help dialogue if you've been helped
+    private int iters; //global iters
 
     private StateTracker() {
         gameState = new ArrayList<>();
         incineratedCompanion = false;
         savedCompanion = false;
         helpInitiated = false;
-        initializeRooms();
+        initializeRooms(); //creates all rooms and gamestates
     }
 
     private void initializeRooms() {
@@ -33,7 +35,7 @@ public class StateTracker {
     }
 
     public static StateTracker getInstance() {
-        return tracker;
+        return tracker; //singleton
     }
 
     public ArrayList<Room> getGlobalState() {return gameState;}
@@ -44,7 +46,7 @@ public class StateTracker {
     public boolean getHelpInitiated() {return helpInitiated;}
     public void setHelpInitiated() {helpInitiated = true;}
     public int getGlobalIters() {return iters;}
-    public void incGlobalIter() {iters += 1;}
+    public void incGlobalIter() {iters += 1;} //bunch of assessors and mutators, this is where they're important
 
 
     public RoomState getRoomState(int roomIndex) {
@@ -64,28 +66,28 @@ public class StateTracker {
 
     public boolean[] getStartedPuzzles(int roomIndex) {
         RoomState s = getRoomState(roomIndex);
-        return s.getPuzzlesVisited();
+        return s.getPuzzlesVisited(); 
     }
 
-    public boolean isPuzzleVisited(int roomIndex, int puzzleIndex) {
+    public boolean isPuzzleStarted(int roomIndex, int puzzleIndex) {
         RoomState s = getRoomState(roomIndex);
-        return s.isPuzzleVisited(puzzleIndex);
+        return s.isPuzzleVisited(puzzleIndex); //used in many puzzles, esp ones where you need other corners to complete
     }
 
     public boolean isPuzzleFinished(int roomIndex, int puzzleIndex) {
         RoomState s = getRoomState(roomIndex);
-        return s.isPuzzleCompleted(puzzleIndex);
+        return s.isPuzzleCompleted(puzzleIndex); //used in all three puzzles
     }
 
-    public boolean isRoomDone(int roomIndex) {
+    public boolean isRoomFinished(int roomIndex) {
         boolean[] completed = getFinishedPuzzles(roomIndex);
         for (boolean b : completed) {
             if (!b) return false;
         }
-        return true;
+        return true; //goes over all rooms 
     }
 
-    public void setPuzzleCompleted(int roomIndex, int puzzleIndex) {
+    public void setPuzzleFinished(int roomIndex, int puzzleIndex) {
         RoomState s = getRoomState(roomIndex);
         s.setPuzzleCompleted(puzzleIndex);
     }
@@ -110,8 +112,6 @@ public class StateTracker {
         for (boolean puzzle : r.getPuzzlesCompleted()) {
             if (puzzle == false) {i++;}
         }
-        return i;
+        return i; // to display n / 3 
     }
-
-
-}
+} // end statetracker class

@@ -1,7 +1,10 @@
+// Katelynn Prater - 7/18/25
+// RoomState class to store more room specific info
+
 package org.github.escaperoom;
 
 public class RoomState {
-    private int roomIter;
+    private int roomIter; //iterations for each room
     private boolean[] puzzlesCompleted;
     private boolean[] puzzlesVisited;
 
@@ -26,5 +29,5 @@ public class RoomState {
     public void setPuzzlesCompleted(boolean[] puzzlesCompleted) {this.puzzlesCompleted = puzzlesCompleted;}
     public void setPuzzlesVisited(boolean[] puzzlesVisited) {this.puzzlesVisited = puzzlesVisited;}
 
-    public int getRoomIter() {return roomIter;}
+    public int getRoomIter() {return roomIter;} //bunch of assessors and mutators
 }   

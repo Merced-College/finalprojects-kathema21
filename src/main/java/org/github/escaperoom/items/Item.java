@@ -1,9 +1,12 @@
+// Katelynn Prater - 7/18/25
+// Item abstract class as template for all other future items
+
 package org.github.escaperoom.items;
 
-public abstract class Item {
+public abstract class Item { 
     protected String name;
     protected String desc;
-    protected boolean consumable;
+    protected boolean consumable; // there will be one item that doesn't disintegrate, differentiates that
 
     public Item(String name, String desc, boolean consumable) {
         this.name = name;
@@ -19,8 +22,8 @@ public abstract class Item {
     
     public abstract void introduce();
 
-    @Override
+    @Override //for dev
     public String toString() {
         return "name: " + name + ", desc: " + desc;
     }
-}
+} // end item class

@@ -1,3 +1,7 @@
+// Katelynn Prater - 7/18/25
+// Inventory class to store all usable and mobile items by player
+
+
 package org.github.escaperoom.items;
 
 import java.util.ArrayList;
@@ -6,10 +10,10 @@ import org.github.escaperoom.TextMethods;
 
 public class Inventory {
     private final ArrayList<Item> inv;
-    private final TextMethods txt = TextMethods.getInstance();
+    private final TextMethods txt = TextMethods.getInstance(); 
 
     public Inventory() {
-        inv = new ArrayList<>();
+        inv = new ArrayList<>(); // only one instance of each item, otherwise hashmaps
     }
 
     public ArrayList<Item> getInventory() {return inv;}
@@ -19,7 +23,7 @@ public class Inventory {
         txt.typeWriterNormal("You put the " + i.getName().toLowerCase() + "  in your inventory. You'll probably need it later.");
     }
 
-    public void removeItem(Item i) {
+    public void removeItem(Item i) { //different from below for different dialogue
         inv.remove(i);
         txt.typeWriterNormal("In a haze of effervescent particles, the " + i.getName().toLowerCase() + " disintegrates in your hand. It is gone seemingly forever.");
     }
@@ -30,7 +34,7 @@ public class Inventory {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //for dev reasons
         StringBuilder sb = new StringBuilder();
         for (Item i : inv) {
             sb.append ("name: ");
@@ -40,4 +44,4 @@ public class Inventory {
         }
         return sb.toString();
     }
-}
+} // end inventory class

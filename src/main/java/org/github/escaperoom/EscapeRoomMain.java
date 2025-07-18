@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+
+
 package org.github.escaperoom;
 import org.github.escaperoom.Room1.Room1;
 
@@ -6,11 +9,12 @@ import org.github.escaperoom.Room1.Room1;
  * @author kathema21
  * 
  */
-public class EscapeRoomMain {
+public class EscapeRoomMain { // main
 
     public static void main(String[] args) {
         TextMethods txt = TextMethods.getInstance();
 
+        //my little intro :)
         txt.typeWriterKat("Hello! Welcome to my escape room game (name still pending). It definitely isn't super professional, but I've had fun writing it so far!");
         txt.waitFor(400);
         txt.typeWriterKat("This game is *unfinished*, and only has one room out of the several I have planned. Moreover, while I did my best to do weird inputs to spot bugs, I probably couldn't find everything. As such, let me know if you come across any (talking to you, professor).");
@@ -23,6 +27,6 @@ public class EscapeRoomMain {
         System.out.println();
         txt.waitFor(700);
         Room1 r1 = new Room1();
-        r1.runRoom();
+        r1.runRoom(); //begins room1, will be changed when full gameloop is instantiated
     }
-}
+} // end main

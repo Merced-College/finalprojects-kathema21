@@ -1,3 +1,8 @@
+// Katelynn Prater - 7/18/25 - Room1
+// This is the main logic for how room1 works, pulling from
+// all three puzzles and paper item
+
+
 package org.github.escaperoom.Room1;
 import org.github.escaperoom.Player;
 import org.github.escaperoom.Room;
@@ -11,9 +16,9 @@ public class Room1 extends Room {
     private final Room1Memory puzzle2;
     private final Room1Mirror puzzle3;
     private final Paper paper;
-    private final Player player = Player.getInstance();
+    private final Player player = Player.getInstance(); //one player only
 
-    public Room1() {
+    public Room1() { // constructor initializes all puzzles & collectable item
         puzzle1 = new Room1Buttons();
         puzzle2 = new Room1Memory();
         puzzle3 = new Room1Mirror();
@@ -23,48 +28,48 @@ public class Room1 extends Room {
     public Room1Buttons getPuzzle1() {return puzzle1;}
     public Room1Memory getPuzzle2() {return puzzle2;}
     
-    @Override
+    @Override // Room.java abstract class
     public void runRoom() {
         boolean removedItem = false;
-        player.setLocation(Player.Move.CENTER);
-        decideIntro();
+        player.setLocation(Player.Move.CENTER); //starts player in center of room
+        decideIntro(); // for later version of game when iterations (endless loop) changes narrator dialogue, not relevant here
         txt.typeWriterNormal("In the four corners of the room are various puzzles. Complete all three to finish the room, as stated prior.");
-        while (!StateTracker.getInstance().isRoomDone(0)) {
-            player.move();
+        while (!StateTracker.getInstance().isRoomFinished(0)) { 
+            player.move(); //to corner
             switch (player.getLocation()) {
                 case FIRST -> puzzle1.initiateButtonPuzzle();
                 case SECOND -> puzzle2.initiateMemoryPuzzle();
                 case THIRD -> puzzle3.initiateMirror();
                 case FOURTH -> decidePaper();
-                case CENTER -> {}
+                case CENTER -> {} // impossible to be here, can't move from center to center in .move()
             }
-            if (StateTracker.getInstance().isPuzzleFinished(0, 0) && removedItem == false) {
-                player.getInventory().removeFirstItem(paper);
+            if (StateTracker.getInstance().isPuzzleFinished(0, 0) && removedItem == false) { 
+                player.getInventory().removeFirstItem(paper); //mechanic that dissolves item once used for puzzle
                 removedItem = true;
             }
         }
-        decideCompletionDialogue();
-    }
+        decideCompletionDialogue(); // irrelevant, always first iter as incomplete
+    } // end runRoom
 
-    public void decidePaper() {
+    public void decidePaper() { //logic to determine if paper is unactivated, taken, or ready to be taken
         if (!puzzle1.hasRevealedPaper()) {
             txt.typeWriterNormal("You see a blank wooden table with nothing on it. It is suspiciously bare. You wonder if it is hiding something from you.");
             txt.typeWriterNormal("You don't find anything yet, so you decide to move back to the center.");
             player.move();
         }
-        else if (paper.getAcquired()) {
+        else if (paper.getAcquired()) { 
             txt.typeWriterNormal("You return to the table where you found your paper. You don't see anything else here. You decide to return to the center.");
             player.move();
         }
         else {
             paper.cornerReveal();
             paper.introduce();
-            player.getInventory().addItem(paper);
+            player.getInventory().addItem(paper); 
         }
-    }
+    } // end decidePaper
 
-    private void decideCompletionDialogue() {
-        switch(state.getRoomIter()) {
+    private void decideCompletionDialogue() { //dialogue method
+        switch(state.getRoomIter()) { //more narrator options
             case 0 -> {
                 txt.typeWriterNormal("Well, that was frankly an unreasonable amount of time. I've seen players do this room much quicker than you.");
                 txt.waitFor(300);
@@ -91,11 +96,10 @@ public class Room1 extends Room {
                 txt.typeWriterNormal("The door screeches, yadda yadda.");
                 txt.typeWriterNormal("Feel free to do whatever.");
             }
-        }
+        } // end decideCompletionDialogue
     }
 
-
-    private void decideIntro() {
+    private void decideIntro() { //more dialogue & iteration changes
         switch(state.getRoomIter()) {
             case 0 -> {
                 txt.typeWriterNormal("Oh, another one? Seriously?");
@@ -158,12 +162,10 @@ public class Room1 extends Room {
                 txt.promptFinalQuestion();
             }
         }
-    }
+    } // end decideIntro
 
     public static void main(String[] args) {
         Room1 r1 = new Room1();
         r1.runRoom();
     }
-
-
-}
+} // end room1 class

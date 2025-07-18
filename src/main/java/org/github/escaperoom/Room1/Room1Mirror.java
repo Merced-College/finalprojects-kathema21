@@ -50,7 +50,7 @@ public class Room1Mirror {
         askQuestions();
         txt.waitFor(400);
         txt.typeWriterNormal("Okay, well. ... That's the puzzle. Don't look so shocked.");
-        StateTracker.getInstance().setPuzzleCompleted(0, 2);
+        StateTracker.getInstance().setPuzzleFinished(0, 2);
     }
     
     
@@ -82,6 +82,6 @@ public class Room1Mirror {
             catch (NumberFormatException e) {
                 txt.typeWriterNormal("Speechless?");
             }
-        }
-    }
-}
+        } // end while loop
+    } // end raskQuestions
+} // end room1Mirror class
