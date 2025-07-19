@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// main to run room1
+
 package org.github.escaperoom;
 import org.github.escaperoom.Room1.Room1;
 

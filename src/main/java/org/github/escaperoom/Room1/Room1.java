@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// room1 as logic and loop for room1 and its puzzles
+
 package org.github.escaperoom.Room1;
 import org.github.escaperoom.Player;
 import org.github.escaperoom.Room;

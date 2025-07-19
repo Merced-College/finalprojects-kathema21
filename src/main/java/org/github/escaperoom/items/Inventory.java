@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// Inventory class for inv logic for player
+
 package org.github.escaperoom.items;
 
 import java.util.ArrayList;

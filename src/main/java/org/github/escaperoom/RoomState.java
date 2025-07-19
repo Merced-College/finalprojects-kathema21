@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// room state model class to store data
+
 package org.github.escaperoom;
 
 public class RoomState {

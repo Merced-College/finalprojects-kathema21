@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25\
+// tracks all rooms and gamestates
+
 package org.github.escaperoom;
 import java.util.ArrayList;
 

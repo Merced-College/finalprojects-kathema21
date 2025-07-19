@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// third puzzle for room1 ; looking into mirror
+
 package org.github.escaperoom.Room1;
 
 import java.util.LinkedHashMap;

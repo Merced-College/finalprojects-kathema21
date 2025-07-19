@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// abstract item class to serve as framework for all items
+
 package org.github.escaperoom.items;
 
 public abstract class Item { 

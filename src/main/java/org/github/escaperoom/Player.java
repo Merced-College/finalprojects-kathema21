@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// player class to store player logic, loc, and held item
+
 package org.github.escaperoom;
 import java.util.Scanner;
 

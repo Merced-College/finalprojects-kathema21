@@ -1,3 +1,6 @@
+// Katelynn Prater - 7/18/25
+// mini helper class to allow for pairs
+
 package org.github.escaperoom;
 
 public class Pair<K, V> { //mini pair helper class for textmethods class
