@@ -1,3 +1,6 @@
+//Katelynn Prater - 7/18/25
+// Paper class for usage in puzzle1 room1
+
 
 package org.github.escaperoom.items;
 

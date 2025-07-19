@@ -1,3 +1,6 @@
+//Katelynn Prater - 7/18/25
+//abstract room class for room template/logic
+
 
 package org.github.escaperoom;
 

@@ -1,3 +1,6 @@
+//Katelynn Prater - 7/18/25
+//main class for escape room
+
 
 package org.github.escaperoom;
 import org.github.escaperoom.Room1.Room1;

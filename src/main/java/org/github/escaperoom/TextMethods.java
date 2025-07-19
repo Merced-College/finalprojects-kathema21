@@ -1,3 +1,6 @@
+//Katelynn Prater - 7/18/25
+// txt methods to deal with input parsing and narrator
+
 
 package org.github.escaperoom;
 import java.io.IOException;

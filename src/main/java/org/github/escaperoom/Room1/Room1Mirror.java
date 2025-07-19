@@ -1,4 +1,7 @@
 
+//Katelynn Prater - 7/18/25
+//Third puzzle in room1 logic
+
 package org.github.escaperoom.Room1;
 
 import java.util.LinkedHashMap;
