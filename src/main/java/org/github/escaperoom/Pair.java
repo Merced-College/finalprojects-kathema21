@@ -1,4 +1,7 @@
 
+//Katelynn Prater - 7/18/25
+// small pair class to help with linkedhashmap
+
 package org.github.escaperoom;
 
 public class Pair<K, V> { //mini pair helper class for textmethods class

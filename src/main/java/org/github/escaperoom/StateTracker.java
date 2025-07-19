@@ -1,4 +1,5 @@
-
+////Katelynn Prater - 7/18/25
+/// tracks state of all rooms at once and other global vars
 package org.github.escaperoom;
 import java.util.ArrayList;
 

@@ -1,4 +1,7 @@
 
+//Katelynn Prater - 7/18/25
+// player class to create logic for player loc currRoom and helditem
+
 package org.github.escaperoom;
 import java.util.Scanner;
 

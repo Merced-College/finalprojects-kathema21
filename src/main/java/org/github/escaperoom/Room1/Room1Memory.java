@@ -1,4 +1,6 @@
 
+//Katelynn Prater - 7/18/25
+//Room1Memory for logic for second puzzle
 package org.github.escaperoom.Room1;
 
 import java.util.Arrays;

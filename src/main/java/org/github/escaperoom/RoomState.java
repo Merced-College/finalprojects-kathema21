@@ -1,3 +1,5 @@
+//Katelynn Prater - 7/18/25
+//roomstate stores data regarding each room
 
 package org.github.escaperoom;
 

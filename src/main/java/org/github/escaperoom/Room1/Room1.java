@@ -1,3 +1,5 @@
+//Katelynn Prater - 7/18/25
+// Room1 class to store loop for room1 and further logic
 
 package org.github.escaperoom.Room1;
 import org.github.escaperoom.Player;

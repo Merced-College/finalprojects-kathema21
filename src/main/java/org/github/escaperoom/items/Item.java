@@ -1,4 +1,7 @@
 
+//Katelynn Prater - 7/18/25
+//Item abstract class for framework for all items
+
 package org.github.escaperoom.items;
 
 public abstract class Item { 

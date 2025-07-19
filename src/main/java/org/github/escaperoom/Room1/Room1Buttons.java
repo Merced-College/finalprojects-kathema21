@@ -1,4 +1,5 @@
-
+//Katelynn Prater - 7/18/25
+// room1buttons class for logic for first puzzle
 package org.github.escaperoom.Room1;
 import java.util.ArrayList;
 import java.util.Random;
