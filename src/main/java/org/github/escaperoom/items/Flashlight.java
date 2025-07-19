@@ -1,5 +1,3 @@
-// Katelynn Prater - 7/18/25
-// Flashlight class for third room, not relevant yet
 
 package org.github.escaperoom.items;
 import org.github.escaperoom.TextMethods;

@@ -1,5 +1,3 @@
-// Katelynn Prater - 7/18/25
-// mini helper class to allow for pairs
 
 package org.github.escaperoom;
 

@@ -1,5 +1,3 @@
-// Katelynn Prater - 7/18/25
-// text methods for narrator and input parsing
 
 package org.github.escaperoom;
 import java.io.IOException;

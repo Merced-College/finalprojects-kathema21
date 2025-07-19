@@ -1,5 +1,3 @@
-// Katelynn Prater - 7/18/25
-// second puzzle for room1 ; memory
 
 package org.github.escaperoom.Room1;
 

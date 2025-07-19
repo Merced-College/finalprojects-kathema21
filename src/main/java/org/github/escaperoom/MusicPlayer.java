@@ -1,5 +1,3 @@
-// Katelynn Prater - 7/18/25
-// spur of moment class to play audio
 
 package org.github.escaperoom;
 import java.io.File;

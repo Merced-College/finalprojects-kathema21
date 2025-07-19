@@ -1,5 +1,3 @@
-// Katelynn Prater - 7/18/25
-// paper class to serve as hint utility in puzzle 1 room 1
 
 package org.github.escaperoom.items;
 

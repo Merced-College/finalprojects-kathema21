@@ -1,5 +1,3 @@
-// Katelynn Prater - 7/18/25
-// First puzzle for room1 ; buttons
 
 package org.github.escaperoom.Room1;
 import java.util.ArrayList;
